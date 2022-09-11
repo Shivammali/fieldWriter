@@ -9,9 +9,17 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.bean.*;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
 public class FieldWriter extends FieldWriterVariables{
 	
-	public static void excelData()throws IOException {
+	public static void excelData()throws IOException {	
+	System.setProperty("webdriver.chrome.driver","D:\\code\\Projects\\JAVA Projects\\eclipse\\fieldWriter\\files\\Driver\\chromedriver.exe");
+	WebDriver driver=new ChromeDriver();
+	
+
 	
 		FieldWriter e1= new FieldWriter();
 		
@@ -24,7 +32,7 @@ public class FieldWriter extends FieldWriterVariables{
 		
 			int rows=sheet.getLastRowNum();
 			int cols=sheet.getRow(1).getLastCellNum();
-			
+			driver.get("https://www.facebook.com/login/");
 			for(int r=0;r<=rows;r++)
 			{
 				XSSFRow row=sheet.getRow(r); //0
@@ -36,7 +44,8 @@ public class FieldWriter extends FieldWriterVariables{
 					switch(cell.getCellType())
 					{
 					case STRING: 
-						System.out.print(cell.getStringCellValue());
+						driver.findElement(By.id("email")).sendKeys(cell.getStringCellValue());
+						System.out.print("Exported Data as follows"+ cell.getStringCellValue());
 					break;
 					case NUMERIC: 
 						System.out.print(cell.getNumericCellValue());
@@ -49,12 +58,14 @@ public class FieldWriter extends FieldWriterVariables{
 				}
 				System.out.println();
 			} 
-
+		
+			
 
 }
 
 public static void main(String[] args)throws IOException 	{
 	excelData();
+	
 	
 }
 

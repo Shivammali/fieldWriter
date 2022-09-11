@@ -1,0 +1,11 @@
+package com.bean;
+
+public class FieldWriterVariables {
+	
+
+	public static String data() {
+	String FilePath="D:\\code\\GROOVY REACT LEARNING\\JAVA Projects\\excel\\IndiaCapital1.xlsx";
+	return FilePath;
+	
+	}
+}

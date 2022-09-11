@@ -4,12 +4,11 @@ public class FieldWriterVariables {
 	
 
 	public static String data() {
-	String FilePath="D:\\code\\GROOVY REACT LEARNING\\JAVA Projects\\excel\\IndiaCapital1.xlsx";
+	String FilePath="D:\\code\\Projects\\JAVA Projects\\excel\\demo.xlsx";
 	return FilePath;
 	}
 	public static String path() {
-		String FilePath="D:\\code\\GROOVY REACT LEARNING\\JAVA Projects\\excel\\IndiaCapital1.xlsx";
-		 System.setProperty("webdriver.chrome.driver","C:\\Users\\ADMIN\\Downloads\\chromedriver_win32\\chromedriver.exe");
+		String FilePath="D:\\code\\Projects\\JAVA Projects\\excel\\IndiaCapital1.xlsx";
 		return FilePath;
 		}
 }
