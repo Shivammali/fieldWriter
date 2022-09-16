@@ -48,65 +48,66 @@ public class FieldWriter extends FieldWriterVariables{
 					
 					XSSFCell cell=row.getCell(c);
 					if(c==0){
-						
-//						switch(cell.getCellType())
-//						{	
-//						
-//						case NUMERIC: 
+
 							System.out.print("Working With" + cell.getNumericCellValue());
-//						break;
-						
-//						}
+
 						
 					}
 					else if(c==2)  {
-//						switch(cell.getCellType())
-//						{
-//						case STRING: 
-//							//driver.findElement(By.id("email")).sendKeys(cell.getStringCellValue());
+				
+
 						driver.get(cell.getStringCellValue());
 						
 							System.out.print("Redirected to the page" + cell.getStringCellValue());
-					
-							driver.findElement(By.xpath("//input[@id='user_login']")).sendKeys("Shivam");
-							driver.findElement(By.xpath("//input[@id='user_pass']")).sendKeys("Shivam123");
-							driver.findElement(By.id("wp-submit")).click();
-							
-//						break;
-//						
-//						}
+//					if(loginTrigger=false) {
+//							driver.findElement(By.xpath("//input[@id='user_login']")).sendKeys("Shivam");
+//							driver.findElement(By.xpath("//input[@id='user_pass']")).sendKeys("Shivam123");
+//							   try {
+//									Thread.sleep(3000);
+//								} catch (InterruptedException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								}
+//							driver.findElement(By.id("wp-submit")).click();
+//							loginTrigger=true;
+//					} for wordpress login menu
+
 					}
 					else if(c==3) {
-//						switch(cell.getCellType())
-//						{
-//						case STRING: 
-//							//driver.findElement(By.id("email")).sendKeys(cell.getStringCellValue());
-							driver.findElement(By.xpath("//input[@id='title']")).sendKeys(cell.getStringCellValue());
+
+//							driver.findElement(By.xpath("//input[@id='title']")).sendKeys(cell.getStringCellValue());
+							driver.findElement(By.name("MultiLine")).sendKeys(cell.getStringCellValue());
 							System.out.print("Exported values to First box" + cell.getStringCellValue());
-//							
-//						break;
-//						
-//						}
+
 					}
 					else if(c==4) {
-//						switch(cell.getCellType())
-//						{
-//						case STRING: 
-//							//driver.findElement(By.id("email")).sendKeys(cell.getStringCellValue());
-							driver.findElement(By.id("content")).sendKeys(cell.getStringCellValue());
+
+//							driver.findElement(By.id("content")).sendKeys(cell.getStringCellValue());
+						driver.findElement(By.name("MultiLine1")).sendKeys(cell.getStringCellValue());
 							System.out.print("Exported values to second box" + cell.getStringCellValue());
-							driver.findElement(By.id("save-post")).click();
-//						break;
-//						
-//						}
+							   try {
+									Thread.sleep(3000);
+								} catch (InterruptedException e) {
+								
+									e.printStackTrace();
+								}
+							   driver.findElement(By.xpath("//button[contains(@value,'submit')]")).click();
+//							driver.findElement(By.id("save-post")).click();
 					}
 				
 					System.out.println("End of "+ c + "row");
 					
 					System.out.println("submitted the form");
+					 try {
+							Thread.sleep(3000);
+						} catch (InterruptedException e) {
+						
+							e.printStackTrace();
+						}
 				}
 				System.out.println();
 			} 
+				
 		
 			
 
@@ -114,6 +115,7 @@ public class FieldWriter extends FieldWriterVariables{
 
 public static void main(String[] args)throws IOException 	{
 	excelData();
+	ExcelWriter excelWriter=new ExcelWriter();
 	
 	
 }
