@@ -2,7 +2,7 @@ package com.main;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-
+import java.util.concurrent.TimeUnit;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -32,29 +32,78 @@ public class FieldWriter extends FieldWriterVariables{
 		
 			int rows=sheet.getLastRowNum();
 			int cols=sheet.getRow(1).getLastCellNum();
-			driver.get("https://www.facebook.com/login/");
-			for(int r=0;r<=rows;r++)
+			boolean loginTrigger=false;
+			for(int r=0;r<rows;r++)
 			{
 				XSSFRow row=sheet.getRow(r); //0
-				
+
+				   try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				for(int c=0;c<cols;c++)
 				{
-					XSSFCell cell=row.getCell(c);
 					
-					switch(cell.getCellType())
-					{
-					case STRING: 
-						driver.findElement(By.id("email")).sendKeys(cell.getStringCellValue());
-						System.out.print("Exported Data as follows"+ cell.getStringCellValue());
-					break;
-					case NUMERIC: 
-						System.out.print(cell.getNumericCellValue());
-					break;
-					case BOOLEAN: 
-						System.out.print(cell.getBooleanCellValue());
-					break;
+					XSSFCell cell=row.getCell(c);
+					if(c==0){
+						
+//						switch(cell.getCellType())
+//						{	
+//						
+//						case NUMERIC: 
+							System.out.print("Working With" + cell.getNumericCellValue());
+//						break;
+						
+//						}
+						
 					}
-					System.out.print(" | ");
+					else if(c==2)  {
+//						switch(cell.getCellType())
+//						{
+//						case STRING: 
+//							//driver.findElement(By.id("email")).sendKeys(cell.getStringCellValue());
+						driver.get(cell.getStringCellValue());
+						
+							System.out.print("Redirected to the page" + cell.getStringCellValue());
+					
+							driver.findElement(By.xpath("//input[@id='user_login']")).sendKeys("Shivam");
+							driver.findElement(By.xpath("//input[@id='user_pass']")).sendKeys("Shivam123");
+							driver.findElement(By.id("wp-submit")).click();
+							
+//						break;
+//						
+//						}
+					}
+					else if(c==3) {
+//						switch(cell.getCellType())
+//						{
+//						case STRING: 
+//							//driver.findElement(By.id("email")).sendKeys(cell.getStringCellValue());
+							driver.findElement(By.xpath("//input[@id='title']")).sendKeys(cell.getStringCellValue());
+							System.out.print("Exported values to First box" + cell.getStringCellValue());
+//							
+//						break;
+//						
+//						}
+					}
+					else if(c==4) {
+//						switch(cell.getCellType())
+//						{
+//						case STRING: 
+//							//driver.findElement(By.id("email")).sendKeys(cell.getStringCellValue());
+							driver.findElement(By.id("content")).sendKeys(cell.getStringCellValue());
+							System.out.print("Exported values to second box" + cell.getStringCellValue());
+							driver.findElement(By.id("save-post")).click();
+//						break;
+//						
+//						}
+					}
+				
+					System.out.println("End of "+ c + "row");
+					
+					System.out.println("submitted the form");
 				}
 				System.out.println();
 			} 
