@@ -11,6 +11,7 @@ import com.bean.*;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class FieldWriter extends FieldWriterVariables{
@@ -21,18 +22,26 @@ public class FieldWriter extends FieldWriterVariables{
 	
 
 	
-		FieldWriter e1= new FieldWriter();
+	
 		
-		
-		String excelFilePath=FieldWriterVariables.data();
+		ExcelWriter excelWriter=new ExcelWriter();
+		String excelFilePath=FieldWriterVariables.importData();
 		FileInputStream inputstream=new FileInputStream(excelFilePath);
 		XSSFWorkbook workbook=new XSSFWorkbook(inputstream);
 		XSSFSheet sheet=workbook.getSheetAt(0);	//XSSFSheet sheet=workbook.getSheet("Sheet1");
 	////  USING FOR LOOP
-		
+
 			int rows=sheet.getLastRowNum();
 			int cols=sheet.getRow(1).getLastCellNum();
 			boolean loginTrigger=false;
+			String linkLocation;
+			double cellNumber = 0 ;
+			
+			
+			
+			
+			
+			
 			for(int r=0;r<rows;r++)
 			{
 				XSSFRow row=sheet.getRow(r); //0
@@ -50,7 +59,7 @@ public class FieldWriter extends FieldWriterVariables{
 					if(c==0){
 
 							System.out.print("Working With" + cell.getNumericCellValue());
-
+							cellNumber=cell.getNumericCellValue();
 						
 					}
 					else if(c==2)  {
@@ -92,19 +101,28 @@ public class FieldWriter extends FieldWriterVariables{
 									e.printStackTrace();
 								}
 							   driver.findElement(By.xpath("//button[contains(@value,'submit')]")).click();
+							   System.out.println("submitted the form");
+							   try {
+									Thread.sleep(3000);
+								} catch (InterruptedException e) {
+								
+									e.printStackTrace();
+								}
+							   WebElement link= driver.findElement(By.className("btnLink"));
+								 linkLocation = link.getAttribute("href");
+								 excelWriter.fieldExport(linkLocation, cellNumber);
+								  System.out.println("Link Location "+linkLocation);
 //							driver.findElement(By.id("save-post")).click();
 					}
 				
-					System.out.println("End of "+ c + "row");
+				
 					
-					System.out.println("submitted the form");
-					 try {
-							Thread.sleep(3000);
-						} catch (InterruptedException e) {
-						
-							e.printStackTrace();
-						}
+					
+					
+					 
+				
 				}
+				System.out.println("End of "+ r + "row");
 				System.out.println();
 			} 
 				
