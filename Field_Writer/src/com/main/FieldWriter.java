@@ -36,8 +36,8 @@ public class FieldWriter extends FieldWriterVariables{
 			boolean loginTrigger=false;
 			String linkLocation;
 			double cellNumber = 0 ;
-			String cellNumberString="";
 			int rowNumber=0;
+			String cellNumberString="";
 			
 			
 			
@@ -58,6 +58,7 @@ public class FieldWriter extends FieldWriterVariables{
 				{
 					
 					XSSFCell cell=row.getCell(c);
+					
 					if(c==0){
 
 							System.out.print("Working With" + cell.getNumericCellValue());
