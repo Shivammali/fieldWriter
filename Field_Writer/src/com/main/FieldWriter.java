@@ -36,7 +36,8 @@ public class FieldWriter extends FieldWriterVariables{
 			boolean loginTrigger=false;
 			String linkLocation;
 			double cellNumber = 0 ;
-			
+			String cellNumberString="";
+			int rowNumber=0;
 			
 			
 			
@@ -44,6 +45,7 @@ public class FieldWriter extends FieldWriterVariables{
 			
 			for(int r=0;r<rows;r++)
 			{
+				rowNumber=r;
 				XSSFRow row=sheet.getRow(r); //0
 
 				   try {
@@ -60,7 +62,8 @@ public class FieldWriter extends FieldWriterVariables{
 
 							System.out.print("Working With" + cell.getNumericCellValue());
 							cellNumber=cell.getNumericCellValue();
-						
+							cellNumberString =String.valueOf(cellNumber);
+						System.out.println(cellNumber);
 					}
 					else if(c==2)  {
 				
@@ -109,8 +112,9 @@ public class FieldWriter extends FieldWriterVariables{
 									e.printStackTrace();
 								}
 							   WebElement link= driver.findElement(By.className("btnLink"));
-								 linkLocation = link.getAttribute("href");
-								 excelWriter.fieldExport(linkLocation, cellNumber);
+							   linkLocation = link.getAttribute("href");
+								 
+								 excelWriter.fieldExport(cellNumberString,linkLocation,rowNumber);
 								  System.out.println("Link Location "+linkLocation);
 //							driver.findElement(By.id("save-post")).click();
 					}

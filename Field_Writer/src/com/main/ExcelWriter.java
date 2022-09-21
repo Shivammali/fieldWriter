@@ -2,7 +2,7 @@ package com.main;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -14,24 +14,26 @@ import com.main.FieldWriter;
 
 
 public class ExcelWriter{
-	public static void fieldExport(String linkLocation, double cellNumber) throws IOException{
+	public static void fieldExport( String cellNumberString,String linkLocation,int rowNumber) throws IOException{
 	XSSFWorkbook workbook=new XSSFWorkbook();
 	XSSFSheet sheet=workbook.createSheet("Posted links");
 	
-	 ArrayList<Object[]> empdata=new ArrayList<Object[]>();
-     
-	  empdata.add(new Object[]{cellNumber,linkLocation});
+	 ArrayList<Object[]> linkData=new ArrayList<Object[]>();
+   
+	 linkData.add(new Object[]{cellNumberString,linkLocation});
+	 linkData.add(new Object[]{"Empid","Name"});
+	
 
 	/// using for...each loop
 	
-      int rownum=0;
+      int rownum=rowNumber;
       
-      for(Object[] emp:empdata)
+      for(Object[] link:linkData)
       {
-    	  XSSFRow row=sheet.createRow(rownum++);
+    	  XSSFRow row=sheet.createRow(rownum);
     	 int cellnum=0; 
     	  
-    	  for(Object value:emp)
+    	  for(Object value:link)
             {
     		  XSSFCell cell=row.createCell(cellnum++);
 				
@@ -41,6 +43,7 @@ public class ExcelWriter{
 						cell.setCellValue((Integer)value);
 				if(value instanceof Boolean)
 					cell.setCellValue((Boolean)value);	
+				
     	  }
       }
 	
