@@ -1,6 +1,7 @@
 package com.main;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -13,6 +14,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+
+
 
 public class FieldWriter extends FieldWriterVariables{
 	
@@ -43,7 +53,7 @@ public class FieldWriter extends FieldWriterVariables{
 			
 			
 			
-			for(int r=0;r<rows;r++)
+			for(int r=0;r<=rows;r++)
 			{
 				rowNumber=r;
 				XSSFRow row=sheet.getRow(r); //0
@@ -114,9 +124,38 @@ public class FieldWriter extends FieldWriterVariables{
 								}
 							   WebElement link= driver.findElement(By.className("btnLink"));
 							   linkLocation = link.getAttribute("href");
+							   System.out.println("Link Location "+linkLocation);
+							   
+							   int rownum=rowNumber;
+							   
+							   XSSFRow row2=sheet.createRow(rownum);
+								 row2.createCell(0).setCellValue(cellNumberString);
+								 row2.createCell(1).setCellValue(linkLocation);
 								 
-								 excelWriter.fieldExport(cellNumberString,linkLocation,rowNumber);
-								  System.out.println("Link Location "+linkLocation);
+
+								String filePath=FieldWriterVariables.exportData();;
+								FileOutputStream outstream=new FileOutputStream(filePath);
+								workbook.write(outstream);
+
+								outstream.close();
+								
+								System.out.println("Data is written on" + rownum);
+							   
+							   
+							   
+							   
+							   
+							   
+							   
+							   
+							   
+							   
+							   
+							   
+							   
+							   
+								// excelWriter.fieldExport(cellNumberString,linkLocation,rowNumber);
+								
 //							driver.findElement(By.id("save-post")).click();
 					}
 				
@@ -138,7 +177,8 @@ public class FieldWriter extends FieldWriterVariables{
 
 public static void main(String[] args)throws IOException 	{
 	excelData();
-	ExcelWriter excelWriter=new ExcelWriter();
+	//ExcelWriter excelWriter=new ExcelWriter();
+	
 	
 	
 }
