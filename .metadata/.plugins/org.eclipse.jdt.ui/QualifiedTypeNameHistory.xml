@@ -6,4 +6,5 @@
     <fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFRow"/>
     <fullyQualifiedTypeName name="org.apache.poi.xssf.usermodel.XSSFCell"/>
     <fullyQualifiedTypeName name="java.io.IOException"/>
+    <fullyQualifiedTypeName name="org.apache.poi.hssf.usermodel.HSSFRow"/>
 </qualifiedTypeNameHistroy>
